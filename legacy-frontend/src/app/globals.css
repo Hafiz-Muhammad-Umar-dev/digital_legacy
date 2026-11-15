@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-paper: #F6F5F2;
+    --bg-surface: #FFFFFF;
+    --text-ink: #141B1F;
+    --text-muted: #5A6A72;
+    --border-mist: #E2E8E6;
+    --color-dusk: #2B454E;
+    --color-dusk-light: #3D5F6B;
+    --color-bronze: #9E7B4F;
+    --color-bronze-light: #C29D6D;
+    --color-ember: #A8422B;
+    --color-emerald: #2E6B4F;
+  }
+
+  body {
+    background-color: var(--bg-paper);
+    color: var(--text-ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif), Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-dusk);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn-saas {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 shadow-sm active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn-saas bg-[#2B454E] text-white hover:bg-[#3D5F6B] shadow-sm;
+  }
+  .btn-secondary {
+    @apply btn-saas bg-white text-[#141B1F] border border-[#E2E8E6] hover:bg-[#F6F5F2] hover:border-[#CBD5D1];
+  }
+  .btn-bronze {
+    @apply btn-saas bg-[#9E7B4F] text-white hover:bg-[#B58D5D] shadow-sm;
+  }
+  .btn-danger {
+    @apply btn-saas bg-white text-[#A8422B] border border-[#A8422B]/30 hover:bg-[#A8422B]/10;
+  }
+  .card-saas {
+    @apply bg-white rounded-xl border border-[#E2E8E6] p-6 shadow-sm transition-all duration-200 hover:shadow-md;
+  }
+  .input-saas {
+    @apply w-full rounded-lg border border-[#E2E8E6] bg-white px-4 py-2.5 text-sm text-[#141B1F] placeholder:text-[#5A6A72]/50 focus:border-[#2B454E] focus:ring-1 focus:ring-[#2B454E] transition-all;
+  }
+  .label-saas {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-[#5A6A72];
+  }
+  .error-saas {
+    @apply rounded-lg border border-[#A8422B]/30 bg-[#A8422B]/10 p-3 text-sm text-[#A8422B];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
