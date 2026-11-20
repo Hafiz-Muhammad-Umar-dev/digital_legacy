@@ -9,6 +9,7 @@ from app.config import settings
 from app.database import Base, get_db
 from app.main import app
 from app.models import Persona
+from app.rate_limit import limiter
 from app.services.chat_service import _persona_prompt
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
@@ -34,9 +35,12 @@ app.dependency_overrides[get_db] = override_get_db
 
 @pytest.fixture(autouse=True)
 def setup_database():
+    old_enabled = getattr(limiter, "enabled", True)
+    limiter.enabled = False
     Base.metadata.create_all(bind=engine)
     yield
     Base.metadata.drop_all(bind=engine)
+    limiter.enabled = old_enabled
 
 
 client = TestClient(app)

@@ -17,6 +17,7 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from app.services.chat_service import generate_chat_answer as _generate_chat_answer
+from app.services.embedding_service import generate_and_save_embedding
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from slowapi import _rate_limit_exceeded_handler
@@ -348,6 +349,7 @@ def delete_relationship(
 
 def _save_memory(db: Session, memory: Memory) -> Memory:
     try:
+        generate_and_save_embedding(db, memory)
         db.commit()
         db.refresh(memory)
         return memory
@@ -389,6 +391,7 @@ def create_memory(
         db.add(memory)
         db.commit()
         db.refresh(memory)
+        generate_and_save_embedding(db, memory)
         return memory
     except Exception as exc:
         db.rollback()
